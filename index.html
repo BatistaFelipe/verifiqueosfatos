@@ -84,10 +84,6 @@
     function render(newData, containerSelector = 'main') {
       const items = newData || getLS();
 
-      if (!items || !items.length) {
-        document.querySelector(containerSelector).innerHTML = '';
-      }
-
       // 1. Skip completely if the content hasn't changed at all
       if (JSON.stringify(items) === JSON.stringify(currentPosts)) {
         return;
@@ -104,15 +100,19 @@
         mainTarget.appendChild(grid);
       }
 
-      // 2. If memory is empty (initial page load), render everything
-      if (currentPosts.length === 0) {
+      // Preserve the incremental append optimization when existing items are unchanged.
+      // Rebuild the grid if an existing item was edited or removed.
+      const unchangedPrefix = items.length >= currentPosts.length &&
+        currentPosts.every((post, index) =>
+          JSON.stringify(post) === JSON.stringify(items[index]));
+
+      if (!unchangedPrefix) {
         grid.innerHTML = items.map((item, index) => createCardHTML(item, index)).join('');
       } else {
-        // 3. Otherwise, append/prepend ONLY the new items to avoid re-rendering existing DOM nodes
         const newItems = items.slice(currentPosts.length);
         if (newItems.length > 0) {
           const fragment = document.createDocumentFragment();
-          
+
           newItems.forEach((item, idx) => {
             const indexInTotal = currentPosts.length + idx;
             const tempDiv = document.createElement('div');
@@ -120,8 +120,7 @@
             fragment.appendChild(tempDiv.firstChild);
           });
 
-          // Change to prepend() if newest posts should appear at the top
-          grid.appendChild(fragment); 
+          grid.appendChild(fragment);
         }
       }
 
