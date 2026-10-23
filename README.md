@@ -17,7 +17,7 @@ O editor é feito em HTML, CSS e JavaScript puro, sem bibliotecas, backend, banc
 3. Use **Nova declaração**, **Editar** ou **Excluir** para administrar os registros. Os campos usam a mesma estrutura `n`, `c`, `t` e `v` documentada abaixo.
 4. Clique em **Baixar posts.json**. Substitua `posts.json` no repositório ou na hospedagem e publique o arquivo atualizado.
 
-**Importante:** alterações feitas no editor ficam apenas na memória da aba até a exportação. Baixar o JSON **não** publica o conteúdo. O editor não altera o repositório por conta própria e não envia credenciais. Ele valida a estrutura ao importar e ao salvar, e confirma exclusões.
+**Importante:** alterações feitas no editor ficam apenas na memória da aba até a exportação. Baixar o JSON **não** publica o conteúdo. O editor não altera o repositório por conta própria e não envia credenciais. Ele valida a estrutura ao importar e ao salvar, confirma exclusões e preserva fontes (`s`) e outros campos adicionais (`id`, `h`, `a` etc.) durante a importação, edição e exportação.
 
 O caminho `/editor/` não é uma área administrativa protegida: qualquer pessoa pode abrir a interface se ela estiver publicada, mas ninguém ganha, por isso, permissão para alterar o arquivo hospedado. A publicação continua dependendo das permissões do repositório ou do host. Não inclua tokens, senhas ou segredos nos arquivos do cliente.
 
@@ -47,7 +47,7 @@ Caso post.json tenha sido obtido com sucesso a página comparará os itens atuai
 
 Após este processo a função de rendering é chamada e o front reage, nessa fase é onde a página é de fato percebida pelo user.
 
-## PWA (Progresstive Web App)
+## PWA (Progressive Web App)
 
 Um PWA (Progressive Web App ou Aplicativo Web Progressivo) é uma aplicação criada com tecnologias web tradicionais (HTML, CSS e JavaScript) que oferece uma experiência de uso semelhante à de um aplicativo nativo de celular ou computador. 
 
@@ -89,7 +89,8 @@ Este arquivo deve servir um Array de objetos com a seguinte estrutura:
     "n": 1,
     "c": 1,
     "t": "Aqui estará a declaração feita pelo candidato descrita o mais fielmente possível",
-    "v": "Aqui estará a verificação feita, com fontes e referências."
+    "v": "Aqui estará a verificação feita, com fontes e referências.",
+    "s": ["https://www.ibge.gov.br/", "https://www.bcb.gov.br/"]
   }
 ]
 ```
@@ -101,6 +102,7 @@ Onde:
 - `"c"` é o check status, 1 para Verdadeiro, 2 para Falso e 3 para Parcial
 - `"t"` é o `text`, basicamente a declaração feita pelo candidato
 - `"v"` é a verificação, ou seja: o texto de demonstrando o que foi verificado
+- `"s"` (opcional) são as fontes: um array de URLs http(s), exibidas no card como links com o domínio de cada uma, sempre abertos em nova aba
 ```
 
 Cada objeto no array seguindo essa estrutura será renderizado como um card contendo foto e as informações checadas. Caso posts.json falhe ou seja inválido a página falhará silenciosamente e manterá o estado atual válido. Este objeto é configurado assim pra que possa ser distribuído com custo mínimo. Você pode mudar imagens e os labels editando a index.html. 
