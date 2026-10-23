@@ -1,10 +1,17 @@
-const CACHE_NAME = 'pwa-static-v2'; // Incremented cache version
+const CACHE_NAME = 'pwa-static-v4'; // Incremented cache version
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './normalize.css',
   './style.css',
-  './manifest.json'
+  './manifest.json',
+  './lula.webp',
+  './flavio.webp',
+  './favicon.ico',
+  './apple-touch-icon.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-maskable-512.png'
 ];
 
 // 1. Install Event: Cache essential app shell files
