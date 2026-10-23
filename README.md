@@ -47,7 +47,7 @@ Caso post.json tenha sido obtido com sucesso a página comparará os itens atuai
 
 Após este processo a função de rendering é chamada e o front reage, nessa fase é onde a página é de fato percebida pelo user.
 
-## PWA (Progresstive Web Web)
+## PWA (Progressive Web App)
 
 Um PWA (Progressive Web App ou Aplicativo Web Progressivo) é uma aplicação criada com tecnologias web tradicionais (HTML, CSS e JavaScript) que oferece uma experiência de uso semelhante à de um aplicativo nativo de celular ou computador. 
 
