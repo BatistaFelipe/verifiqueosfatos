@@ -4,6 +4,25 @@ Plataforma de verificação de declarações com Content Update automático. Con
 
 Instância produtiva em: https://verifiqueosfatos.com/
 
+## Editor local de declarações
+
+Para incluir, consultar, editar ou excluir checagens sem escrever JSON manualmente, use o editor estático em **`/editor/`** (arquivo `editor/index.html`). Em hospedagens que redirecionam automaticamente diretórios, `/editor` também funciona. O projeto não depende desse redirecionamento: `/editor/` é o endereço portátil.
+
+O editor é feito em HTML, CSS e JavaScript puro, sem bibliotecas, backend, banco de dados ou serviço de autenticação.
+
+### Como usar
+
+1. Sirva o projeto localmente com um servidor estático (consulte **Executando local**) e abra `/editor/`. Também é possível acessar o editor publicado, se ele estiver incluído no deploy.
+2. Clique em **Carregar posts.json do site** para buscar a versão do mesmo host. Se preferir, use **Importar JSON** para abrir um arquivo local.
+3. Use **Nova declaração**, **Editar** ou **Excluir** para administrar os registros. Os campos usam a mesma estrutura `n`, `c`, `t` e `v` documentada abaixo.
+4. Clique em **Baixar posts.json**. Substitua `posts.json` no repositório ou na hospedagem e publique o arquivo atualizado.
+
+**Importante:** alterações feitas no editor ficam apenas na memória da aba até a exportação. Baixar o JSON **não** publica o conteúdo. O editor não altera o repositório por conta própria e não envia credenciais. Ele valida a estrutura ao importar e ao salvar, e confirma exclusões.
+
+O caminho `/editor/` não é uma área administrativa protegida: qualquer pessoa pode abrir a interface se ela estiver publicada, mas ninguém ganha, por isso, permissão para alterar o arquivo hospedado. A publicação continua dependendo das permissões do repositório ou do host. Não inclua tokens, senhas ou segredos nos arquivos do cliente.
+
+A página pública permanece independente do editor: continua consumindo somente `posts.json`, usando o mesmo fluxo de atualização estática e os mesmos custos de infraestrutura.
+
 ## Arquitetura e Fluxo
 
 Esta aplicação é uma `PWA (Progressive Web Page)` estática feita em vanilla `HTML/CSS/JS` com `Auto Update` sem necessidade de backend dedidcado, os arquivos devem ser servidos preferencialmente de maneira serverless. Recomenda-se uma CDN. Não há "backend", você só precisa de um host. Nesta Doc Section você entenderá o que acontece assim que um usuário acessa esta app, seja em modo local ou produtivo.
