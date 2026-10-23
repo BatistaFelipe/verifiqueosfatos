@@ -109,7 +109,8 @@
             typeof post.v !== 'string' || !post.v.trim()) {
           throw new Error('Registro ' + (index + 1) + ' inválido: use n, c, t e v.');
         }
-        return { n: post.n, c: post.c, t: post.t, v: post.v };
+        // Preserve sources and any additional metadata on import/export.
+        return { ...post };
       });
     }
 
@@ -200,6 +201,7 @@
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const post = {
+        ...(editingIndex === null ? {} : posts[editingIndex]),
         n: Number(document.querySelector('#candidate').value),
         c: Number(document.querySelector('#verdict').value),
         t: document.querySelector('#statement').value.trim(),
