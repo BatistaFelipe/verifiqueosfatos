@@ -74,19 +74,23 @@ h1 {
   font: 400 24px/1.2 var(--serif);
 }
 
+.github,
 .theme {
   flex: none;
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  margin-left: auto;
   padding: 0;
   background: var(--surface);
   border: 1px solid var(--line2);
   border-radius: 50%;
   color: var(--ink);
   cursor: pointer;
+}
+
+.github {
+  margin-left: auto;
 }
 
 .sun,
